@@ -158,7 +158,7 @@ margin-left: 5px;
 						<ul>
 						<?php
 						foreach ((array)$data as $key=>$value) {?>
-						<li><a href="<?php echo $this->getUrl('wwjw_links/index/post');?>?id=<?php echo $value[ID];?>&type=<?php echo $value[TYPE];?>"><?php echo $value[TITLE];?></a></li>
+						<li><a href="<?php echo $this->getUrl('wwjw_links/index/post');?>?id=<?php echo $value['ID'];?>&type=<?php echo $value['TYPE'];?>"><?php echo $value['TITLE'];?></a></li>
 						<?php } ?>
 						</ul>
 					</div>

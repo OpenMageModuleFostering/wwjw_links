@@ -80,11 +80,11 @@ function page($num, $perpage, $curpage, $operation) {
     return $multipage;
 }
 
-$id = intval($_GET['id']);
-$title = $_GET['TITLE'];
-$page = intval($_GET['page']) ? intval($_GET['page']) : 1;
-$type = intval($_GET['type']);
-$sort = $_GET['sort'];
+$id = intval(@$_GET['id']);
+$title = @$_GET['TITLE'];
+$page = intval(@$_GET['page']) ? intval(@$_GET['page']) : 1;
+$type = intval(@$_GET['type']);
+$sort = @$_GET['sort'];
 if (!in_array($sort, array('P', 'H', 'L'))) {
 	$sort = 'H';
 }
