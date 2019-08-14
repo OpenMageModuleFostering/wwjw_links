@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Wwjw_Links>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Wwjw_Links>
+    </modules>
+</config> 

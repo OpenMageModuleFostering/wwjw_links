@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <wwjwtab translate="label" module="links">
+            <label>WWJW Api Setting</label>
+            <sort_order>300</sort_order>
+        </wwjwtab>
+    </tabs>
+    <sections>
+        <wwjwlinks translate="label" module="links">
+            <label>Wwjw link Exchange</label>                   
+            <tab>wwjwtab</tab>           
+            <sort_order>340</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <paypal_notice translate="label" module="paypal">
+                    <frontend_model>links/adminhtml_system_config_fieldset_hint</frontend_model>
+                    <help_link>https://www.paypal-marketing.com/emarketing/partner/na/merchantlineup/home.page#mainTab=checkoutlineup&amp;subTab=newlineup</help_link>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </paypal_notice>
+                <wwjwsettings translate="label">
+                    <label>Wwjw link Exchange</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <wwjw_userid translate="label">
+                            <label>Wwjw User Id </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </wwjw_userid>
+                        <wwjw_key translate="label">
+                            <label>Wwjw Consumer Key </label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </wwjw_key>
+                        <wwjw_secret translate="label">
+                            <label>Wwjw Consumer Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </wwjw_secret>
+                    </fields>                
+                </wwjwsettings>       
+            </groups>
+        </wwjwlinks>
+    </sections>
+</config>

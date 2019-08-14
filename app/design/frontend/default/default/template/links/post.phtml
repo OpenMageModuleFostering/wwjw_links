@@ -1,0 +1,249 @@
+<?php
+//define('ROOT', dirname(__FILE__).'/');
+define('WWJW_HOST', 'http://api.wwjw.com/');
+$config = array(
+	'user_id' => Mage::getStoreConfig('wwjwlinks/wwjwsettings/wwjw_userid'),
+	'consumer_key' => Mage::getStoreConfig('wwjwlinks/wwjwsettings/wwjw_key'),
+	'consumer_secret' => Mage::getStoreConfig('wwjwlinks/wwjwsettings/wwjw_secret')
+);
+function curlPost($url,$data)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;
+}
+
+function sendApi()
+{
+	global $config;
+	$config['domain'] = $_SERVER['HTTP_HOST'];
+	//$file = ROOT . 'config/send.txt';
+	//if (!is_file($file)) {
+	if (true) {
+		//file_put_contents($file, 1);
+		$sendApiUri = WWJW_HOST . "request/isuse";
+		$dat = http_build_query($config);
+		
+		$result = curlPost($sendApiUri, $dat);
+		$result = json_decode($result);
+		if ($result->err == 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+}
+function page($num, $perpage, $curpage, $operation) {
+    global $setting;
+    $multipage = '';
+    //$operation = urlmap($operation, 2);
+    //$operation = SITE_URL . $setting['seo_prefix'] . $operation . '/';
+    //$operation = SITE_URL . $setting['seo_prefix'] . $operation . '/';
+    //('admin' == substr($operation, 0, 5)) && ( $operation = 'index.php?' . $operation . '/');
+    if ($num > $perpage) {
+        $page = 10;
+        $offset = 2;
+        $pages = @ceil($num / $perpage);
+        if ($page > $pages) {
+            $from = 1;
+            $to = $pages;
+        } else {
+            $from = $curpage - $offset;
+            $to = $from + $page - 1;
+            if ($from < 1) {
+                $to = $curpage + 1 - $from;
+                $from = 1;
+                if ($to - $from < $page) {
+                    $to = $page;
+                }
+            } elseif ($to > $pages) {
+                $from = $pages - $page + 1;
+                $to = $pages;
+            }
+        }
+        $multipage = ($curpage - $offset > 1 && $pages > $page ? '<a href="' . $operation . '1' . $setting['seo_suffix'] . '" >Home</a>' . "\n" : '') .
+                ($curpage > 1 ? '<a href="' . $operation . ($curpage - 1) . $setting['seo_suffix'] . '"  >Previous</a>' . "\n" : '');
+        for ($i = $from; $i <= $to; $i++) {
+            $multipage .= $i == $curpage ? "<a target=\"_self\" onclick=\"javascript:void(0);\"><span class='current'>$i</span></a>\n" :
+                    '<a href="' . $operation . $i . $setting['seo_suffix'] . '">' . $i . '</a>' . "\n";
+        }
+        $multipage .= ( $curpage < $pages ? '<a href="' . $operation . ($curpage + 1) . $setting['seo_suffix'] . '">Next</a>' . "\n" : '') .
+                ($to < $pages ? '<a href="' . $operation . $pages . $setting['seo_suffix'] . '" >Last</a>' . "\n" : '');
+    }
+    return $multipage;
+}
+
+$id = intval($_GET['id']);
+$title = $_GET['TITLE'];
+$page = intval($_GET['page']) ? intval($_GET['page']) : 1;
+$type = intval($_GET['type']);
+$sort = $_GET['sort'];
+if (!in_array($sort, array('P', 'H', 'L'))) {
+	$sort = 'H';
+}
+if (!in_array($type, array(1,2))) {
+	$type = 1;
+}
+$dirpath = str_replace('\\', '/', dirname(__FILE__));
+$REQUEST_URI = $_SERVER['REQUEST_URI'];
+$URIS = explode('/', $REQUEST_URI);
+
+$position = strpos($URIS[1], '?') ? '../' : $URIS[1];
+$pos = $position == '../' ? '' : $position;
+
+if ($id > 0 || $title) {
+	$request_uri = WWJW_HOST . 'request/links';
+	$request_dat = http_build_query($config);
+	$request_dat .= "&id=$id&page=$page&sort=$sort&title=$title&type=$type".'&domain='.$_SERVER['HTTP_HOST'].'&pos='.$pos;
+	$result = curlPost($request_uri, $request_dat);
+	$result = json_decode($result);
+	$perpage = $result->perpage;
+	$count = $result->count;
+	$cateurl = $this->getUrl('wwjw_links/index/post');
+	$pages = page($count, $perpage, $page, "{$cateurl}?id=$id&TITLE=$title&sort=$sort&type=$type&page=");
+	if ($result->err == 0) {
+		$type = $result->type;
+		sendApi();
+		$data = $result->msg;
+		foreach ((array)$data as $key=>$value) {
+			$data[$key] = (array)$value;
+		}
+	}
+}
+?>
+<style type="text/css">
+.height1{height:7px;overflow:hidden;clear:both;}
+.height2{height:9px;overflow:hidden;clear:both;}
+.height3{height:10px;overflow:hidden;clear:both;}
+.height4{height:15px;overflow:hidden;clear:both;}
+.lay{width:900px;margin-left:auto;margin-right:auto;}
+
+/*lays_1*/
+#lays_1{}
+.left_1{width:900px;float:left;}
+.left_1_border{border:1px solid #E1F3FF;}
+.right_1{width:263px;float:right;}
+
+#copyright {
+    border-top: 1px solid rgb(213, 224, 239);
+    color: rgb(151, 151, 151);
+    font-size: 14px;
+    height: 93px;
+    line-height: 2em;
+    padding: 10px 0;
+    text-align: center;
+}
+.lay {
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+}
+#copyright a {
+    color: rgb(59, 123, 213);
+}
+#copyright p {
+    color: rgb(59, 123, 213);
+}
+
+.gg_1{border:1px solid #DFF2FF;padding:3px 6px;}
+.gg_1 img{margin:3px 0;}
+
+.tab_1{background:#F9FCFF;padding-bottom:5px;}
+.tab_1 h3{height:20px;line-height:20px;overflow:hidden;padding-left:10px;padding-top:10px;margin-bottom:10px;}
+
+.tab_1 ul.list_2 li{border-bottom:1px dashed #DEEBFE;padding-left:15px;padding-right:15px;line-height:2em;height:1%;overflow:Hidden;padding-top:10px;}
+.tab_1 ul.list_2 li tt{float:right;color:#F9A911;}
+.tab_1 ul.list_2 li tt.other{color:#9A9A9A;}
+.tab_1 ul.list_2 li tt b{font-size:150%;font-family:Verdana, Tahoma, Arial, sans-serif;}
+.tab_1 ul.list_2 li span{color:#F9A911;font-size:14px;font-weight:bold;}
+
+DIV.quotes {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; MARGIN: 3px; PADDING-TOP: 3px; TEXT-ALIGN: center;
+}
+DIV.quotes A {
+	BORDER-RIGHT: #ddd 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ddd 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; BORDER-LEFT: #ddd 1px solid; COLOR: #aaa; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #ddd 1px solid; TEXT-DECORATION: none
+}
+DIV.quotes A:hover {
+	BORDER-RIGHT: #a0a0a0 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #a0a0a0 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; BORDER-LEFT: #a0a0a0 1px solid; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #a0a0a0 1px solid
+}
+
+DIV.quotes A .current{
+	BORDER-RIGHT: #a0a0a0 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #a0a0a0 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; BORDER-LEFT: #a0a0a0 1px solid; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #a0a0a0 1px solid;COLOR: #aaa;
+}
+
+DIV.quotes A:active {
+	BORDER-RIGHT: #a0a0a0 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #a0a0a0 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; BORDER-LEFT: #a0a0a0 1px solid; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #a0a0a0 1px solid
+}
+DIV.quotes SPAN.current {
+	BORDER-RIGHT: #e0e0e0 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #e0e0e0 1px solid; PADDING-LEFT: 5px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; BORDER-LEFT: #e0e0e0 1px solid; COLOR: #aaa; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #e0e0e0 1px solid; BACKGROUND-COLOR: #f0f0f0
+}
+DIV.quotes SPAN.disabled {
+	BORDER-RIGHT: #f3f3f3 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #f3f3f3 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; BORDER-LEFT: #f3f3f3 1px solid; COLOR: #ccc; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: #f3f3f3 1px solid
+}
+</style>
+<div class="lay">
+	<p class="height3" />
+		<div id="path">Position:<a href="<?php echo $this->getUrl('wwjw_links/index/index');?>">Link Exchange</a>
+	<p class="height3" />
+	<div id="lays_1">
+		<div class="left_1">
+			<p class="height3" />
+			<div class="tab_1 left_1_border">
+				<h5 style="padding-left:10px;">
+						<form action="<?php echo $this->getUrl('wwjw_links/index/post');?>" method="GET">
+						<br />
+						Search Links:<input type="text" name="TITLE" size="40" />
+						<input type="hidden" id="type" name="type" value="<?php if ($type == 1) echo 1; else echo 2?>"/>
+						<input type="submit" value="Search" />
+						<a href="http://<?php if ($type == 1) echo 'www'; else echo 'd'?>.wwjw.com/submit.php" id="add-site" target="_blank">[Add your Site] </a>
+						</form>
+					</h5>
+				<h3><span>Links</span></h3>
+				<p class="height4" />
+				<span style="padding-left:10px;">
+				Sort:
+				<a href="<?php echo $this->getUrl('wwjw_links/index/post');?>?id=<?php echo $id;?>&TITLE=<?php echo $title;?>&sort=P"><?php if ($sort == 'P') echo 
+				'<strong>PR</strong>'; else echo 'PR';?></a> | 
+				<a href="<?php echo $this->getUrl('wwjw_links/index/post');?>?id=<?php echo $id;?>&TITLE=<?php echo $title;?>&sort=H"><?php if ($sort == 'H') echo 
+				'<strong>Hits</strong>'; else echo 'Hits';?></a> |
+				<a href="<?php echo $this->getUrl('wwjw_links/index/post');?>?id=<?php echo $id;?>&TITLE=<?php echo $title;?>&sort=L"><?php if ($sort == 'L') echo 
+				'<strong>Alphabetical</strong>'; else echo 'Alphabetical';?></a>
+				</span>
+				<ul class="list_2">
+					
+					<?php foreach ((array)$data as $key=>$value) { ?>
+					<li>
+					<span><a href="<?php echo $value['URL']?>" target="_blank"><?php echo $value['TITLE']?></a></span>
+					<br/>
+					<?php echo $value['DESCRIPTION']?></br>
+						<div id="div1" class="list_11 yh">
+							<div><a href="<?php if ($type == 1) echo 'http://www.wwjw.com'; else echo 'http://d.wwjw.com';?>/detail.php?id=<?php echo $value['ID']?>" target="_blank">More...</a>
+							 Score:<?php echo $value['score']?>/5.00 PageRank: <?php if ($value['PAGERANK']) echo 0; else echo $value['PAGERANK']?> Hits:<?php echo $value['HITS'];?>
+							</div>
+						</div>
+					</li>
+					<?php } ?>
+				</ul>
+				<p class="height4 clears" />
+				<div class="quotes">
+				<?php echo $pages;?>
+				</div>
+			</div>
+		</div>
+		<div class="clears"></div>
+	</div>
+	</div>
+    <div style="clear: both;">
+		<div class="lay" id="copyright">
+			<p><a href="/">Home</a> | <a target="_blank" href="http://e.wwjw.com">Package Tracking</a></p>
+			<p>Copyright  &copy;  2004-2013 Powered by <a target="_blank" href="http://www.wwjw.com">WWJW</a></p>
+		</div>
+	</div>
+</div>

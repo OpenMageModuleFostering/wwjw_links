@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package>
+    <name>wwjw_links</name>
+    <version>2.1.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>The Link Market's WWJW (Link Directory Management Service) plugin will manage all the links that have been traded through WWJW website.</summary>
+    <description>The Link Market's WWJW (Link Directory Management Service) plugin will manage all the links that have been traded through WWJW website.&#xD;
+&#xD;
+Features:&#xD;
+1.You can login at api.wwjw.com to set the application of exchange links and exclude links that you don't want through PageRank.&#xD;
+Besides,you can delete them one by one.&#xD;
+&#xD;
+2. Website of your company will be shown in more than 100000 websites, which promotes the SEO and page ranking.&#xD;
+It can also bring plenty of visitors for you.&#xD;
+&#xD;
+3.Broken Links will be automaticly removed from your directory&#xD;
+&#xD;
+4.The links will be added in the correct category as they are on WWJW site&#xD;
+&#xD;
+5.You will not have more then 12 links per page&#xD;
+&#xD;
+6.No more FTP will be uploaded to your server.&#xD;
+&#xD;
+7.Once you agree to trade links,the link will be placed on your site&#xD;
+&#xD;
+8.If link exchange does not happen or your link has been removed,we will remove the link from your directory&#xD;
+&#xD;
+9.If someone wants to trade links with you but he is not a WWJW user,we will give him an option to sign up.He will get automatic link exchange with us if his settings for link exchange are the same with ours.&#xD;
+&#xD;
+10.Customize your directory using Cascading Style Sheets (css)</description>
+    <notes>fixed some bugs</notes>
+    <authors><author><name>wwjw</name><user>wwjw</user><email>admin@wwjw.com</email></author></authors>
+    <date>2013-03-03</date>
+    <time>15:01:15</time>
+    <contents><target name="magelocal"><dir name="Wwjw"><dir name="Links"><dir name="Block"><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Fieldset"><file name="Hint.php" hash="d0f5a4c7e981c4dded925440f7840b6e"/></dir></dir></dir></dir><file name="Links.php" hash="6d54064c18b2f22f2e8c7243e65562d2"/></dir><dir name="Helper"><file name="Data.php" hash="18f2abce0adeae151bea45173c16891e"/></dir><dir name="controllers"><file name="IndexController.php" hash="a474de7e88d4b9b8129fbc940e083ec9"/></dir><dir name="etc"><file name="adminhtml.xml" hash="cba06a768950dbb864904027a99be3e7"/><file name="config.xml" hash="f9a5c90fc0b6d76a6ee74539ee99c793"/><file name="system.xml" hash="46cf64828522e35590298f98149cbdc4"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Wwjw_Links.xml" hash="16294301134768bf39cf39d6210be6d2"/></dir></target><target name="magedesign"><dir name="frontend"><dir name="default"><dir name="default"><dir name="layout"><file name="links.xml" hash="12fd07806392355bd470d73cb054c263"/></dir><dir name="template"><dir name="links"><file name="links.phtml" hash="1aed4b5872d6c0daed89e97036faf357"/><file name="post.phtml" hash="127297087346ee1662fce8fd0a14cbcd"/></dir></dir></dir></dir></dir><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="template"><dir name="links"><file name="hint.phtml" hash="d9e0167f678a47c3627425acd1a2e716"/></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>
