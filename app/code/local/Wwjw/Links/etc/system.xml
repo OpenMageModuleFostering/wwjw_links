@@ -15,16 +15,9 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-                <paypal_notice translate="label" module="paypal">
-                    <frontend_model>links/adminhtml_system_config_fieldset_hint</frontend_model>
-                    <help_link>https://www.paypal-marketing.com/emarketing/partner/na/merchantlineup/home.page#mainTab=checkoutlineup&amp;subTab=newlineup</help_link>
-                    <sort_order>0</sort_order>
-                    <show_in_default>1</show_in_default>
-                    <show_in_website>1</show_in_website>
-                    <show_in_store>1</show_in_store>
-                </paypal_notice>
                 <wwjwsettings translate="label">
                     <label>Wwjw link Exchange</label>
+                    <comment><![CDATA[<a href="http://www.wwjw.com/submit.php" target="_blank">Submit Link</a> , <a href="http://api.wwjw.com" target="_blank">Apply Api</a>]]></comment>
                     <frontend_type>text</frontend_type>
                     <sort_order>50</sort_order>
                     <show_in_default>1</show_in_default>

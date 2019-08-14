@@ -34,6 +34,29 @@
 			</links>
         </routers>
     </admin>
+    
+   <adminhtml>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<wwjwlinks translate="title" module="links">
+											<title>Wwjw Settings</title>
+										</wwjwlinks>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+    </adminhtml>
+    
     <global>
         <blocks>
             <links>

@@ -190,7 +190,7 @@ DIV.quotes SPAN.disabled {
 </style>
 <div class="lay">
 	<p class="height3" />
-		<div id="path">Position:<a href="<?php echo $this->getUrl('wwjw_links/index/index');?>">Link Exchange</a>
+		<div id="path">Position:<a href="<?php echo $this->getUrl('wwjw_links/index/index');?>">Link Home</a>
 	<p class="height3" />
 	<div id="lays_1">
 		<div class="left_1">
@@ -210,7 +210,7 @@ DIV.quotes SPAN.disabled {
 				<span style="padding-left:10px;">
 				Sort:
 				<a href="<?php echo $this->getUrl('wwjw_links/index/post');?>?id=<?php echo $id;?>&TITLE=<?php echo $title;?>&sort=P"><?php if ($sort == 'P') echo 
-				'<strong>PR</strong>'; else echo 'PR';?></a> | 
+				'<strong>PageRank</strong>'; else echo 'PageRank';?></a> | 
 				<a href="<?php echo $this->getUrl('wwjw_links/index/post');?>?id=<?php echo $id;?>&TITLE=<?php echo $title;?>&sort=H"><?php if ($sort == 'H') echo 
 				'<strong>Hits</strong>'; else echo 'Hits';?></a> |
 				<a href="<?php echo $this->getUrl('wwjw_links/index/post');?>?id=<?php echo $id;?>&TITLE=<?php echo $title;?>&sort=L"><?php if ($sort == 'L') echo 
@@ -225,7 +225,7 @@ DIV.quotes SPAN.disabled {
 					<?php echo $value['DESCRIPTION']?></br>
 						<div id="div1" class="list_11 yh">
 							<div><a href="<?php if ($type == 1) echo 'http://www.wwjw.com'; else echo 'http://d.wwjw.com';?>/detail.php?id=<?php echo $value['ID']?>" target="_blank">More...</a>
-							 Score:<?php echo $value['score']?>/5.00 PageRank: <?php if ($value['PAGERANK']) echo 0; else echo $value['PAGERANK']?> Hits:<?php echo $value['HITS'];?>
+							 Score:<?php echo $value['score']?>/5.00 <?php if ($value['PAGERANK']) echo 0; else echo $value['PAGERANK']?> Hits:<?php echo $value['HITS'];?>
 							</div>
 						</div>
 					</li>
