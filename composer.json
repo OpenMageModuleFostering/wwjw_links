@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/wwjw_links",
+    "name": "OpenMageModuleFostering\/wwjw_links",
     "type": "magento-module",
     "license": "OSL-v3.0",
     "homepage": "",
     "description": "The Link Market's WWJW (Link Directory Management Service) plugin will manage all the links that have been traded through WWJW website.",
     "authors": [
-    {
-        "name": "wwjw",
-        "email": "admin@wwjw.com"
-    }
-],
+        {
+            "name": "wwjw",
+            "email": "admin@wwjw.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
